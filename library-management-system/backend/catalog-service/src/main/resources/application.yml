@@ -1,0 +1,19 @@
+server.port: 8082
+spring:
+  application.name: catalog-service
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/library_catalog?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Bangkok
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:123456}
+  jpa:
+    hibernate.ddl-auto: update
+    open-in-view: false
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+eureka.client.service-url.defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+app.jwt.secret: ${JWT_SECRET:SmartLibraryGraduationProjectSecretKey2026MustBeLong}
+internal.api-key: ${INTERNAL_API_KEY:SmartLibraryInternalServiceKey2026}
+circulation.base-url: ${CIRCULATION_URL:http://localhost:8083}
+ebook.storage-dir: ${EBOOK_STORAGE_DIR:./uploads/ebooks}

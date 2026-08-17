@@ -1,0 +1,129 @@
+x-backend-env: &backend-env
+  MYSQL_HOST: mysql
+  MYSQL_PASSWORD: ${MYSQL_ROOT_PASSWORD:-123456}
+  EUREKA_URL: http://discovery-server:8761/eureka/
+  JWT_SECRET: ${JWT_SECRET:-SmartLibraryGraduationProjectSecretKey2026MustBeLong}
+  INTERNAL_API_KEY: ${INTERNAL_API_KEY:-SmartLibraryInternalServiceKey2026}
+
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: smart-library-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-123456}
+      TZ: Asia/Bangkok
+    ports: ["3306:3306"]
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL","mysqladmin ping -h localhost -p$${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 25
+  discovery-server:
+    build: {context: ./backend, args: {MODULE: discovery-server}}
+    ports: ["8761:8761"]
+  auth-service:
+    build: {context: ./backend, args: {MODULE: auth-service}}
+    environment:
+      <<: *backend-env
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      APP_FRONTEND_URL: ${APP_FRONTEND_URL:-http://localhost:3000}
+      MAIL_HOST: ${MAIL_HOST:-}
+      MAIL_PORT: ${MAIL_PORT:-587}
+      MAIL_USERNAME: ${MAIL_USERNAME:-}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-}
+      MAIL_FROM: ${MAIL_FROM:-}
+      MAIL_SMTP_AUTH: ${MAIL_SMTP_AUTH:-true}
+      MAIL_SMTP_STARTTLS: ${MAIL_SMTP_STARTTLS:-true}
+    expose: ["8081"]
+    depends_on:
+      mysql: {condition: service_healthy}
+      discovery-server: {condition: service_started}
+  catalog-service:
+    build: {context: ./backend, args: {MODULE: catalog-service}}
+    environment: *backend-env
+    expose: ["8082"]
+    depends_on:
+      mysql: {condition: service_healthy}
+      discovery-server: {condition: service_started}
+  circulation-service:
+    build: {context: ./backend, args: {MODULE: circulation-service}}
+    environment:
+      <<: *backend-env
+      CATALOG_URL: http://catalog-service:8082
+    expose: ["8083"]
+    depends_on:
+      mysql: {condition: service_healthy}
+      discovery-server: {condition: service_started}
+      catalog-service: {condition: service_started}
+  payment-service:
+    build: {context: ./backend, args: {MODULE: payment-service}}
+    environment:
+      <<: *backend-env
+      CIRCULATION_URL: http://circulation-service:8083
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
+      VNPAY_TMN_CODE: ${VNPAY_TMN_CODE:-}
+      VNPAY_HASH_SECRET: ${VNPAY_HASH_SECRET:-}
+      VNPAY_PAY_URL: ${VNPAY_PAY_URL:-https://sandbox.vnpayment.vn/paymentv2/vpcpay.html}
+      VNPAY_RETURN_URL: ${VNPAY_RETURN_URL:-http://localhost:8080/api/payments/vnpay/return}
+      VNPAY_IPN_URL: ${VNPAY_IPN_URL:-http://localhost:8080/api/payments/vnpay/ipn}
+    expose: ["8085"]
+    depends_on:
+      mysql: {condition: service_healthy}
+      discovery-server: {condition: service_started}
+      circulation-service: {condition: service_started}
+  ollama:
+    image: ollama/ollama:latest
+    container_name: smart-library-ollama
+    ports: ["11434:11434"]
+    volumes:
+      - ollama-data:/root/.ollama
+
+  chatbot-service:
+    build: {context: ./backend, args: {MODULE: chatbot-service}}
+    environment:
+      EUREKA_URL: http://discovery-server:8761/eureka/
+      CATALOG_URL: http://catalog-service:8082
+      CIRCULATION_URL: http://circulation-service:8083
+      JWT_SECRET: ${JWT_SECRET:-SmartLibraryGraduationProjectSecretKey2026MustBeLong}
+      OLLAMA_URL: http://ollama:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen2.5:3b}
+      OLLAMA_ENABLED: ${OLLAMA_ENABLED:-true}
+    expose: ["8084"]
+    depends_on:
+      discovery-server: {condition: service_started}
+      catalog-service: {condition: service_started}
+      circulation-service: {condition: service_started}
+      ollama: {condition: service_started}
+  api-gateway:
+    build: {context: ./backend, args: {MODULE: api-gateway}}
+    environment:
+      EUREKA_URL: http://discovery-server:8761/eureka/
+      AUTH_URL: http://auth-service:8081
+      CATALOG_URL: http://catalog-service:8082
+      CIRCULATION_URL: http://circulation-service:8083
+      CHATBOT_URL: http://chatbot-service:8084
+      PAYMENT_URL: http://payment-service:8085
+      APP_CORS_ALLOWED_ORIGINS: ${APP_CORS_ALLOWED_ORIGINS:-http://localhost:*}
+    ports: ["8080:8080"]
+    depends_on:
+      discovery-server: {condition: service_started}
+      auth-service: {condition: service_started}
+      catalog-service: {condition: service_started}
+      circulation-service: {condition: service_started}
+      payment-service: {condition: service_started}
+      chatbot-service: {condition: service_started}
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: http://localhost:8080
+        VITE_GOOGLE_CLIENT_ID: ${VITE_GOOGLE_CLIENT_ID:-}
+    ports: ["3000:80"]
+    depends_on: [api-gateway]
+volumes:
+  mysql-data:
+  ollama-data:
+

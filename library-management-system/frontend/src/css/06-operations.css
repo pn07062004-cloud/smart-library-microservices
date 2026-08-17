@@ -1,0 +1,366 @@
+/* =========================================================
+   SMART LIBRARY
+   OPERATIONS ONLY
+   - Admin settings
+   - Quick borrow / return
+   ========================================================= */
+
+
+/* =========================================================
+   ADMIN SETTINGS
+   ========================================================= */
+
+body.admin-body .settings-card,
+body.admin-body .settings-card:hover {
+    transform: none !important;
+    border-color: #e0e7e3 !important;
+    background: #fff !important;
+    box-shadow: 0 8px 26px rgba(20, 48, 36, .05) !important;
+}
+
+
+/* =========================================================
+   QUICK BORROW / RETURN
+   ========================================================= */
+
+.quick-borrow-grid {
+    display: grid !important;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(380px, 430px) !important;
+
+    grid-template-rows:
+        auto
+        auto
+        auto !important;
+
+    gap: 18px !important;
+
+    align-items: stretch !important;
+}
+
+
+/* CARD */
+
+.quick-borrow-grid > .panel {
+    min-width: 0;
+    min-height: 0;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    border-radius: 16px !important;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   DESKTOP POSITIONS
+   ========================================================= */
+
+.quick-borrow-camera {
+    grid-column: 1 !important;
+    grid-row: 1 / span 2 !important;
+
+    height: 100% !important;
+}
+
+
+.quick-borrow-ticket {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+
+    height: auto !important;
+
+    align-self: start !important;
+}
+
+
+.quick-borrow-usb {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+
+    height: auto !important;
+
+    align-self: start !important;
+}
+
+
+.quick-borrow-history {
+    grid-column: 1 !important;
+    grid-row: 3 !important;
+
+    height: 100% !important;
+
+    min-height: 0 !important;
+}
+
+
+.quick-borrow-manual {
+    grid-column: 2 !important;
+    grid-row: 3 !important;
+
+    height: auto !important;
+
+    align-self: start !important;
+}
+
+
+/* =========================================================
+   PANEL HEADERS
+   ========================================================= */
+
+.quick-borrow-camera .panel-head,
+.quick-borrow-ticket .panel-head,
+.quick-borrow-usb .panel-head,
+.quick-borrow-history .panel-head,
+.quick-borrow-manual .panel-head {
+    flex: none;
+}
+
+
+.quick-borrow-camera .panel-head {
+    min-height: 86px;
+}
+
+
+.quick-borrow-ticket .panel-head,
+.quick-borrow-usb .panel-head,
+.quick-borrow-history .panel-head,
+.quick-borrow-manual .panel-head {
+    padding: 18px 20px 10px;
+}
+
+
+.quick-borrow-ticket .panel-head h2,
+.quick-borrow-usb .panel-head h2,
+.quick-borrow-history .panel-head h2,
+.quick-borrow-manual .panel-head h2 {
+    font-size: 17px;
+}
+
+
+.quick-borrow-ticket .panel-head p,
+.quick-borrow-usb .panel-head p,
+.quick-borrow-history .panel-head p,
+.quick-borrow-manual .panel-head p {
+    margin-top: 6px;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   CAMERA
+   ========================================================= */
+
+.quick-borrow-camera {
+    overflow: hidden;
+}
+
+
+.quick-borrow-camera-frame {
+    position: relative;
+
+    flex: 1 1 auto !important;
+
+    width: 100%;
+
+    height: auto !important;
+
+    min-height: 0 !important;
+
+    overflow: hidden;
+
+    border-radius:
+            0
+            0
+            16px
+            16px !important;
+
+    background:
+            #071f18 !important;
+}
+
+
+/*
+ * Giữ chiều cao camera ổn định
+ * mà không crop hình.
+ */
+.quick-borrow-camera-frame::before {
+    content: "";
+
+    display: block;
+
+    min-height: 420px;
+}
+
+
+.quick-borrow-camera-frame > .quick-borrow-scanner,
+.quick-borrow-camera-frame > div:not(.quick-borrow-scanner) {
+    position: absolute !important;
+
+    inset: 0 !important;
+}
+
+
+.quick-borrow-scanner,
+.quick-borrow-scanner > div {
+    width: 100% !important;
+    height: 100% !important;
+
+    min-height: 100% !important;
+}
+
+
+.quick-borrow-scanner video,
+.quick-borrow-scanner canvas {
+    width: 100% !important;
+    height: 100% !important;
+
+    display: block !important;
+
+    object-fit: contain !important;
+
+    background:
+            #071f18 !important;
+}
+
+
+.quick-borrow-scanner img,
+.quick-borrow-scanner select,
+.quick-borrow-scanner button {
+    max-width: 100%;
+}
+
+
+.quick-borrow-scanner__dashboard,
+.quick-borrow-scanner__dashboard_section,
+.quick-borrow-scanner__status_span {
+    display: none !important;
+}
+
+
+.quick-borrow-scanner__scan_region,
+.quick-borrow-scanner__scan_region video {
+    border-radius: 0 !important;
+}
+
+
+/* =========================================================
+   SIDE CARDS
+   ========================================================= */
+
+.quick-borrow-ticket > div:last-child,
+.quick-borrow-usb > div:last-child,
+.quick-borrow-manual > div:last-child {
+    flex: none !important;
+}
+
+
+.quick-borrow-ticket button,
+.quick-borrow-ticket p {
+    min-height: 0 !important;
+}
+
+
+/* =========================================================
+   HISTORY
+   ========================================================= */
+
+.quick-borrow-history > div:last-child {
+    flex: 1 1 auto !important;
+}
+
+
+.quick-borrow-history .empty {
+    height: 100% !important;
+
+    min-height: 170px !important;
+
+    padding:
+            22px
+            12px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    flex-direction: column !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1280px) {
+
+    .quick-borrow-grid {
+        grid-template-columns:
+            minmax(0, 1fr) !important;
+
+        grid-template-rows:
+            none !important;
+    }
+
+
+    .quick-borrow-camera,
+    .quick-borrow-ticket,
+    .quick-borrow-usb,
+    .quick-borrow-history,
+    .quick-borrow-manual {
+        grid-column:
+                auto !important;
+
+        grid-row:
+                auto !important;
+
+        align-self:
+                stretch !important;
+    }
+
+
+    .quick-borrow-grid > .panel {
+        height:
+                auto !important;
+    }
+
+
+    .quick-borrow-camera-frame {
+        height:
+                420px !important;
+
+        min-height:
+                420px !important;
+
+        flex:
+                none !important;
+    }
+
+
+    .quick-borrow-camera-frame::before {
+        display: none;
+    }
+}
+
+
+@media (max-width: 760px) {
+
+    .quick-borrow-grid {
+        gap:
+                14px !important;
+    }
+
+
+    .quick-borrow-camera-frame {
+        height:
+                320px !important;
+
+        min-height:
+                320px !important;
+    }
+}

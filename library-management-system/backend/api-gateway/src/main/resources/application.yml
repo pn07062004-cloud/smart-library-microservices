@@ -1,0 +1,46 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: ${AUTH_URL:http://localhost:8081}
+          predicates:
+            - Path=/api/auth/**,/api/users/**
+
+        - id: catalog-service
+          uri: ${CATALOG_URL:http://localhost:8082}
+          predicates:
+            - Path=/api/books/**,/api/authors/**,/api/categories/**,/api/publishers/**,/api/copies/**,/api/favorites/**
+
+        - id: circulation-service
+          uri: ${CIRCULATION_URL:http://localhost:8083}
+          predicates:
+            - Path=/api/loans/**,/api/reservations/**,/api/fines/**,/api/dashboard/**,/api/settings/**,/api/qr/**
+
+
+        - id: payment-service
+          uri: ${PAYMENT_URL:http://localhost:8085}
+          predicates:
+            - Path=/api/payments/**
+        - id: chatbot-service
+          uri: ${CHATBOT_URL:http://localhost:8084}
+          predicates:
+            - Path=/api/chat/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+    register-with-eureka: true
+    fetch-registry: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway

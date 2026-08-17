@@ -1,0 +1,210 @@
+/* Favorites UI */
+/* =============================================
+   FAVORITES FEATURE
+   ============================================= */
+
+/* Heart button floating on book cards in the grid */
+.book-card{position:relative;}
+.book-fav-btn{
+    position:absolute;
+    top:10px;
+    left:10px;
+    z-index:10;
+    width:36px;
+    height:36px;
+    display:grid;
+    place-items:center;
+    border:none;
+    border-radius:50%;
+    background:rgba(255,255,255,.92);
+    box-shadow:0 4px 14px rgba(0,0,0,.18);
+    cursor:pointer;
+    transition:
+            background-color .3s ease,
+            transform .35s cubic-bezier(.34,1.56,.64,1),
+            box-shadow .3s ease;
+    backdrop-filter:blur(6px);
+}
+.book-fav-btn svg{
+    width:17px;
+    height:17px;
+    color:#9ca3af;
+    transition:color .3s ease, transform .35s cubic-bezier(.34,1.56,.64,1);
+    fill:transparent;
+    stroke-width:2;
+}
+.book-fav-btn:hover{
+    background:#fff0f3;
+    transform:scale(1.15);
+    box-shadow:0 6px 20px rgba(236,72,153,.25);
+}
+.book-fav-btn:hover svg{
+    color:#ec4899;
+    transform:scale(1.1);
+}
+.book-fav-btn.active{
+    background:linear-gradient(135deg,#fce7f3,#fdf2f8);
+    box-shadow:0 4px 16px rgba(236,72,153,.3);
+}
+.book-fav-btn.active svg{
+    color:#ec4899;
+    fill:#ec4899;
+    transform:scale(1.05);
+}
+
+/* Favorite button on detail page */
+.fav-btn{
+    border:1px solid #d6d9ce;
+    color:#607069;
+    transition:
+            background-color .35s ease,
+            border-color .35s ease,
+            color .35s ease,
+            transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.fav-btn svg{
+    width:18px;
+    height:18px;
+    fill:transparent;
+    stroke-width:2;
+    transition:fill .3s ease, color .3s ease, transform .4s cubic-bezier(.34,1.56,.64,1);
+}
+.fav-btn:hover{
+    border-color:#ec4899;
+    color:#ec4899;
+    background:#fff0f3;
+}
+.fav-btn:hover svg{transform:scale(1.2);}
+.fav-btn.fav-active{
+    background:linear-gradient(135deg,#fce7f3,#fdf2f8);
+    border-color:#f9a8d4;
+    color:#db2777;
+    box-shadow:0 6px 20px rgba(236,72,153,.2);
+}
+.fav-btn.fav-active svg{
+    fill:#db2777;
+    color:#db2777;
+    transform:scale(1.08);
+}
+.heart-filled{fill:#db2777!important;color:#db2777!important;}
+
+/* Favorites tab badge count */
+.fav-tab-count{
+    display:inline-grid;
+    place-items:center;
+    min-width:18px;
+    height:18px;
+    padding:0 5px;
+    margin-left:5px;
+    border-radius:9px;
+    background:linear-gradient(135deg,#ec4899,#db2777);
+    color:#fff;
+    font-size:10px;
+    font-weight:700;
+    vertical-align:middle;
+}
+
+/* Favorites grid in MemberDashboard */
+.favorites-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:20px;
+    padding:4px 2px;
+}
+.fav-card{
+    display:flex;
+    gap:16px;
+    padding:16px;
+    border:1px solid var(--line);
+    border-radius:18px;
+    background:var(--paper-light);
+    box-shadow:var(--shadow-soft);
+    transition:
+            border-color .4s ease,
+            box-shadow .4s ease,
+            transform .4s cubic-bezier(.16,1,.3,1);
+    overflow:hidden;
+}
+.fav-card:hover{
+    border-color:#87b7a4;
+    box-shadow:0 16px 36px rgba(24,79,58,.12);
+    transform:translateY(-4px);
+}
+.fav-cover{
+    flex:none;
+    position:relative;
+    width:90px;
+    height:120px;
+    border-radius:10px;
+    overflow:hidden;
+    display:block;
+    background:#d5d5cc;
+}
+.fav-cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .5s cubic-bezier(.16,1,.3,1);
+}
+.fav-card:hover .fav-cover img{transform:scale(1.06);}
+.fav-cover .availability{
+    position:absolute;
+    bottom:6px;
+    left:4px;
+    right:4px;
+    border-radius:6px;
+    font-size:9px;
+    padding:4px 6px;
+    text-align:center;
+}
+.fav-info{
+    flex:1;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+.fav-info h3{
+    font-size:15px;
+    line-height:1.4;
+    margin:4px 0 2px;
+    color:var(--ink);
+    transition:color .3s ease;
+}
+.fav-card:hover .fav-info h3{color:var(--green);}
+.fav-info p{font-size:12px;color:var(--muted);margin:0;}
+.fav-info small{font-size:10px;color:#96a89f;margin-top:2px;}
+.fav-actions{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:auto;
+    padding-top:10px;
+}
+.fav-actions .btn{
+    padding:8px 14px;
+    font-size:12px;
+    border-radius:10px;
+}
+.fav-remove-btn{
+    padding:8px!important;
+    border-radius:10px!important;
+    color:var(--muted)!important;
+    border-color:var(--line)!important;
+    transition:color .3s ease,border-color .3s ease,background-color .3s ease!important;
+}
+.fav-remove-btn:hover{
+    color:var(--red)!important;
+    border-color:var(--red)!important;
+    background:#fdeaea!important;
+}
+.fav-remove-btn svg{width:14px;height:14px;}
+
+/* stat-icon green for favorites count */
+.stat-icon.green{background:#dcfce7;color:#166534;}
+
+@media(max-width:760px){
+    .favorites-grid{grid-template-columns:1fr;}
+    .fav-card{flex-direction:column;}
+    .fav-cover{width:100%;height:160px;}
+}

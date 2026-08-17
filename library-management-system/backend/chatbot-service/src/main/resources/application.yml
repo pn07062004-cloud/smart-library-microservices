@@ -1,0 +1,23 @@
+server.port: 8084
+
+spring.application.name: chatbot-service
+
+eureka.client.service-url.defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+
+catalog.base-url: ${CATALOG_URL:http://localhost:8082}
+
+circulation.base-url: ${CIRCULATION_URL:http://localhost:8083}
+
+app.jwt.secret: ${JWT_SECRET:SmartLibraryGraduationProjectSecretKey2026MustBeLong}
+
+gemini.base-url: ${GEMINI_BASE_URL:https://generativelanguage.googleapis.com}
+
+gemini.api-key: ${GEMINI_API_KEY:}
+
+gemini.model: ${GEMINI_MODEL:gemini-3.5-flash-lite}
+
+gemini.enabled: ${GEMINI_ENABLED:true}
+
+gemini.thinking-level: ${GEMINI_THINKING_LEVEL:low}
+
+gemini.api-version: ${GEMINI_API_VERSION:v1beta}

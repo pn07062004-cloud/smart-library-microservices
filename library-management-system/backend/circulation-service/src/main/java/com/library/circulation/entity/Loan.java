@@ -1,0 +1,4 @@
+package com.library.circulation.entity;import jakarta.persistence.*;import lombok.*;import java.time.*;
+@Entity @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+public class Loan{public enum Status{BORROWED,OVERDUE,RETURNED,LOST}@Id @GeneratedValue(strategy=GenerationType.IDENTITY)private Long id;@Column(nullable=false)private Long userId;private String userName;private String memberCode;@Column(nullable=false)private Long bookId;@Column(nullable=false)private Long copyId;private String bookTitle;private String barcode;private LocalDate borrowedDate;private LocalDate dueDate;private LocalDate returnedDate;@Enumerated(EnumType.STRING)private Status status;@Builder.Default private Integer renewalCount=0;private String issuedBy;private String returnNote;private LocalDateTime createdAt;@PrePersist void c(){createdAt=LocalDateTime.now();}}
+

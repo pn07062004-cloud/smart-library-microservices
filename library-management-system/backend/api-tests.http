@@ -1,0 +1,25 @@
+### 1. Đăng nhập quản trị (nhấn Run trong IntelliJ HTTP Client)
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{"email":"admin@library.vn","password":"Library@123"}
+
+> {% client.global.set("token", response.body.token); %}
+
+### 2. Tìm sách
+GET http://localhost:8080/api/books?q=Harry&available=true
+
+### 3. Xem hồ sơ hiện tại
+GET http://localhost:8080/api/auth/me
+Authorization: Bearer {{token}}
+
+### 4. Dashboard quản trị
+GET http://localhost:8080/api/dashboard
+Authorization: Bearer {{token}}
+
+### 5. Hỏi chatbot
+POST http://localhost:8080/api/chat
+Content-Type: application/json
+
+{"message":"Tìm giúp tôi sách Harry Potter còn có thể mượn"}
+

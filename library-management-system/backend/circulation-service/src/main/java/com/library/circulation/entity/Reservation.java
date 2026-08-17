@@ -1,0 +1,3 @@
+package com.library.circulation.entity;import jakarta.persistence.*;import lombok.*;import java.time.*;
+@Entity @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder public class Reservation{public enum Status{WAITING,READY,FULFILLED,CANCELLED,EXPIRED}@Id @GeneratedValue(strategy=GenerationType.IDENTITY)private Long id;private Long userId;private String userName;private Long bookId;private String bookTitle;@Enumerated(EnumType.STRING)private Status status;private LocalDateTime reservedAt;private LocalDateTime expiresAt;private Integer queuePosition;@PrePersist void c(){reservedAt=LocalDateTime.now();if(status==null)status=Status.WAITING;}}
+

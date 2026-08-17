@@ -1,0 +1,12 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="400" height="560" viewBox="0 0 400 560" fill="none">
+  <rect width="400" height="560" rx="24" fill="#F2F0E7"/>
+  <rect x="34" y="34" width="332" height="492" rx="18" fill="#FFFFFF" stroke="#C8D5CA"/>
+  <rect x="58" y="58" width="284" height="86" rx="14" fill="#E7F1EB"/>
+  <path d="M122 100c0-16.6 13.4-30 30-30h96c16.6 0 30 13.4 30 30v188c0 8.8-7.2 16-16 16H138c-8.8 0-16-7.2-16-16V100z" fill="#0B7859"/>
+  <path d="M142 91h116v174H142z" fill="#F8FBF8"/>
+  <path d="M158 126h83M158 150h83M158 174h83M158 198h64" stroke="#0B7859" stroke-width="10" stroke-linecap="round"/>
+  <path d="M168 280h64" stroke="#D0DED6" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="200" cy="372" r="56" fill="#E8F4EE" stroke="#0B7859" stroke-width="6"/>
+  <path d="M180 368l14 14 28-28" stroke="#0B7859" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="200" y="462" text-anchor="middle" fill="#355347" font-family="Arial, sans-serif" font-size="28" font-weight="700">Bìa đang cập nhật</text>
+</svg>

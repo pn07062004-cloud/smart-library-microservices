@@ -1,0 +1,15 @@
+server.port: 8083
+spring:
+  application.name: circulation-service
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/library_circulation?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Bangkok
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:123456}
+  jpa:
+    hibernate.ddl-auto: update
+    open-in-view: false
+eureka.client.service-url.defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+catalog.base-url: ${CATALOG_URL:http://localhost:8082}
+auth.base-url: ${AUTH_URL:http://localhost:8081}
+app.jwt.secret: ${JWT_SECRET:SmartLibraryGraduationProjectSecretKey2026MustBeLong}
+internal.api-key: ${INTERNAL_API_KEY:SmartLibraryInternalServiceKey2026}

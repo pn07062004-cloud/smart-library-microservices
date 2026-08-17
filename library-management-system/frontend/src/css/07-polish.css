@@ -1,0 +1,67 @@
+/* Final hover and navigation polish */
+/* Final smooth admin metric hover: lifted like public cards, without jitter. */
+body.admin-body .admin-stats > div,
+body.admin-body .member-stats > div,
+body.admin-body .stat-card-chart{
+    transform:translate3d(0,0,0)!important;
+    will-change:transform,box-shadow;
+    transition:border-color .35s cubic-bezier(.16,1,.3,1), background-color .35s cubic-bezier(.16,1,.3,1), box-shadow .35s cubic-bezier(.16,1,.3,1), transform .35s cubic-bezier(.16,1,.3,1)!important;
+}
+body.admin-body .admin-stats > div:hover,
+body.admin-body .member-stats > div:hover,
+body.admin-body .stat-card-chart:hover{
+    transform:translate3d(0,-6px,0)!important;
+    border-color:rgba(108,167,143,.82)!important;
+    background:#fffaf0!important;
+    box-shadow:0 22px 46px rgba(24,79,58,.16), 0 0 18px rgba(108,167,143,.12)!important;
+}
+body.admin-body .admin-stats > div:hover .stat-icon,
+body.admin-body .member-stats > div:hover .stat-icon,
+body.admin-body .stat-card-chart:hover .stat-card-icon{
+    transform:none!important;
+}
+/* Final polished header nav underline. */
+@media (min-width: 821px){
+    .header .navlinks a{
+        position:relative;
+        display:inline-flex;
+        align-items:center;
+        padding:9px 14px 11px!important;
+        line-height:1.25;
+        border-radius:999px;
+        background:transparent;
+        transform:none!important;
+        transition:color .22s ease, background-color .22s ease, box-shadow .22s ease!important;
+    }
+    .header .navlinks a:hover{
+        color:#045f48;
+        background:rgba(8,114,85,.13);
+        box-shadow:inset 0 0 0 1px rgba(8,114,85,.12);
+        transform:none!important;
+    }
+    .header .navlinks a::after{
+        content:"";
+        position:absolute;
+        left:14px;
+        right:14px;
+        bottom:4px;
+        height:3px!important;
+        border-radius:999px;
+        background:linear-gradient(90deg,var(--gold),#2fa17a,var(--green));
+        opacity:0;
+        transform:scaleX(.2);
+        transform-origin:center;
+        box-shadow:0 7px 14px rgba(8,114,85,.18);
+        transition:opacity .22s ease, transform .34s cubic-bezier(.16,1,.3,1), box-shadow .34s ease;
+    }
+    .header .navlinks a.active::after{
+        opacity:1;
+        transform:scaleX(1);
+    }
+    .header .navlinks a.active{
+        color:var(--green);
+        background:transparent;
+        box-shadow:none;
+        transform:none!important;
+    }
+}

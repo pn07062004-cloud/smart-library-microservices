@@ -1,0 +1,1182 @@
+/*
+ * =========================================================
+ * SMART LIBRARY
+ * APP SHELL + RESPONSIVE LAYOUT
+ *
+ * File này là lớp layout cuối cùng.
+ * Không dùng zoom / transform để giả responsive.
+ * =========================================================
+ */
+
+:root {
+    --app-header-height: 82px;
+    --app-safe-gap: 12px;
+
+    --admin-sidebar-width: 275px;
+}
+
+
+/* =========================================================
+   APP SHELL
+   ========================================================= */
+
+html.app-html,
+html.app-html body,
+html.app-html #root {
+    width: 100%;
+    height: 100%;
+
+    min-height: 100%;
+
+    overflow: hidden;
+}
+
+
+html.app-html .header {
+    position: fixed;
+
+    inset:
+            0
+            0
+            auto
+            0;
+
+    z-index: 120;
+
+    width: 100%;
+    height: var(--app-header-height);
+}
+
+
+html.app-html .route-stage {
+    position: fixed;
+
+    inset:
+            var(--app-header-height)
+            0
+            0
+            0;
+
+    min-width: 0;
+    min-height: 0;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    overscroll-behavior: contain;
+}
+
+
+html.app-html
+.route-stage.admin-route {
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   ADMIN PAGE
+   ========================================================= */
+
+html.app-html.admin-html .admin-page,
+html.app-html.admin-html .admin-page > .container,
+html.app-html.admin-html .admin-layout {
+    width: 100%;
+
+    max-width: 100%;
+
+    height: 100%;
+
+    min-width: 0;
+    min-height: 0;
+
+    margin: 0;
+
+    overflow: hidden;
+}
+
+
+/*
+ * QUAN TRỌNG:
+ *
+ * Sidebar đã nằm trong Grid.
+ * Không được dùng margin-left cho admin-main nữa.
+ */
+html.app-html.admin-html .admin-layout {
+    display: grid;
+
+    grid-template-columns:
+        var(--admin-sidebar-width)
+        minmax(0, 1fr);
+
+    gap: 0;
+
+    align-items: stretch;
+}
+
+
+/* =========================================================
+   ADMIN SIDEBAR
+   ========================================================= */
+
+html.app-html.admin-html .admin-sidebar {
+    position: relative;
+
+    inset: auto;
+
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+
+    width: 100%;
+
+    max-width: none;
+
+    height: 100%;
+    max-height: none;
+
+    margin: 0;
+
+    min-width: 0;
+    min-height: 0;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    overscroll-behavior: contain;
+}
+
+
+/* =========================================================
+   ADMIN MAIN
+   ========================================================= */
+
+html.app-html.admin-html .admin-main {
+    /*
+     * Reset hoàn toàn margin-left
+     * còn sót từ layout cũ.
+     */
+    margin: 0 !important;
+    margin-left: 0 !important;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+    min-height: 0;
+
+    height: 100%;
+
+    box-sizing: border-box;
+
+    padding:
+            32px
+            28px
+            54px
+            34px;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    overscroll-behavior: contain;
+
+    scrollbar-gutter: stable;
+}
+
+
+/* =========================================================
+   GENERIC OVERFLOW GUARDS
+   ========================================================= */
+
+.route-stage,
+.container,
+.catalog-layout,
+.admin-layout,
+.admin-main,
+.admin-grid,
+.admin-grid > *,
+.panel,
+.table-wrap {
+    min-width: 0;
+}
+
+
+/* =========================================================
+   MANAGE USERS
+   ========================================================= */
+
+
+/* ---------- TOOLBAR ---------- */
+
+.users-toolbar {
+    width: 100%;
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+.users-toolbar .searchbox {
+    width: min(520px, 58%);
+
+    min-width: 360px;
+
+    max-width: 520px;
+
+    flex: 0 1 520px;
+}
+
+
+.users-toolbar .searchbox input {
+    width: 100%;
+
+    min-width: 0;
+}
+
+
+.users-toolbar > span {
+    flex: none;
+
+    white-space: nowrap;
+}
+
+
+/* ---------- PANEL ---------- */
+
+.users-panel {
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   USERS TABLE
+   ========================================================= */
+
+.users-table-wrap {
+    width: 100%;
+
+    max-width: 100%;
+
+    min-width: 0;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    overscroll-behavior-x: contain;
+
+    -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: thin;
+
+    scrollbar-color:
+            #aac0b6
+            transparent;
+}
+
+
+.users-table-wrap::-webkit-scrollbar {
+    height: 7px;
+}
+
+
+.users-table-wrap::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+
+.users-table-wrap::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+
+    background: #aac0b6;
+}
+
+
+/*
+ * Không dùng table-layout: fixed.
+ *
+ * Browser được phép phân bố không gian
+ * theo nội dung thực tế.
+ */
+.users-table {
+    width: 100%;
+
+    min-width: 1080px;
+
+    table-layout: auto;
+
+    border-collapse: collapse;
+}
+
+
+/*
+ * Cột 1: Thành viên
+ */
+.users-table th:nth-child(1),
+.users-table td:nth-child(1) {
+    width: 26%;
+
+    min-width: 235px;
+}
+
+
+/*
+ * Cột 2: Mã
+ */
+.users-table th:nth-child(2),
+.users-table td:nth-child(2) {
+    width: 14%;
+
+    min-width: 145px;
+}
+
+
+/*
+ * Cột 3: Liên hệ
+ */
+.users-table th:nth-child(3),
+.users-table td:nth-child(3) {
+    width: 15%;
+
+    min-width: 150px;
+}
+
+
+/*
+ * Cột 4: Ngày tham gia
+ */
+.users-table th:nth-child(4),
+.users-table td:nth-child(4) {
+    width: 11%;
+
+    min-width: 115px;
+}
+
+
+/*
+ * Cột 5: Vai trò
+ */
+.users-table th:nth-child(5),
+.users-table td:nth-child(5) {
+    width: 13%;
+
+    min-width: 140px;
+}
+
+
+/*
+ * Cột 6: Trạng thái
+ */
+.users-table th:nth-child(6),
+.users-table td:nth-child(6) {
+    width: 10%;
+
+    min-width: 110px;
+}
+
+
+/*
+ * Cột 7: Thao tác
+ */
+.users-table th:nth-child(7),
+.users-table td:nth-child(7) {
+    width: 11%;
+
+    min-width: 130px;
+}
+
+
+.users-table th,
+.users-table td {
+    vertical-align: middle;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   USER IDENTITY
+   ========================================================= */
+
+.users-user-cell {
+    width: 100%;
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+}
+
+
+.users-user-cell .avatar {
+    flex: 0 0 auto;
+}
+
+
+.users-user-copy {
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+/*
+ * Tên được phép xuống tối đa khoảng 2 dòng.
+ * Không cắt cụt khi màn hình còn đủ chỗ.
+ */
+.users-user-copy > b {
+    display: -webkit-box;
+
+    max-width: 100%;
+
+    overflow: hidden;
+
+    line-height: 1.35;
+
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+
+.users-user-copy > small:not(.users-self-note) {
+    display: block;
+
+    max-width: 100%;
+
+    margin-top: 3px;
+
+    overflow: hidden;
+
+    color: var(--muted);
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+.users-self-note {
+    display: block;
+
+    margin-top: 5px;
+
+    color: var(--green);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    line-height: 1.3;
+}
+
+
+/* =========================================================
+   MEMBER CODE
+   ========================================================= */
+
+.users-code {
+    display: block;
+
+    width: 100%;
+
+    overflow: hidden;
+
+    font-size: 13px;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+
+.users-contact {
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.users-contact > span {
+    max-width: 100%;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+.users-contact > small {
+    display: block;
+
+    max-width: 100%;
+
+    overflow: hidden;
+
+    color: var(--muted);
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   ROLE SELECT
+   ========================================================= */
+
+.user-role-select {
+    width: 100%;
+
+    min-width: 132px;
+
+    max-width: 160px;
+
+    min-height: 42px;
+
+    box-sizing: border-box;
+
+    padding:
+            8px
+            32px
+            8px
+            11px;
+
+    border:
+            1px
+            solid
+            #d4ddd8;
+
+    border-radius: 10px;
+
+    background: #fffdf8;
+
+    color: var(--ink);
+
+    font-size: 13px;
+
+    line-height: 1.3;
+
+    cursor: pointer;
+}
+
+
+.user-role-select:hover:not(:disabled) {
+    border-color: #9ebcad;
+}
+
+
+.user-role-select:focus {
+    outline: none;
+
+    border-color: #178064;
+
+    box-shadow:
+            0
+            0
+            0
+            3px
+            rgba(
+                    23,
+                    128,
+                    100,
+                    .11
+            );
+}
+
+
+.user-role-select:disabled {
+    opacity: 1;
+
+    border-color: #d6ddda;
+
+    background: #edf1ee;
+
+    color: #6a766f;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.users-table td:nth-child(6) .status {
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.users-actions {
+    min-width: 118px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    gap: 7px;
+
+    white-space: nowrap;
+}
+
+
+.users-actions button {
+    flex:
+            0
+            0
+            34px;
+
+    width: 34px;
+
+    height: 34px;
+}
+
+
+.users-actions button:disabled {
+    opacity: .36;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   AUTH LAYOUT
+   ========================================================= */
+
+.auth-page {
+    min-width: 0;
+
+    min-height: 100%;
+
+    grid-template-columns:
+        minmax(
+            420px,
+            46%
+        )
+        minmax(
+            0,
+            54%
+        );
+}
+
+
+.auth-image,
+.auth-form-wrap,
+.auth-form {
+    min-width: 0;
+}
+
+
+.auth-form-wrap {
+    overflow-y: auto;
+
+    padding:
+            clamp(
+                    30px,
+                    4vw,
+                    64px
+            );
+}
+
+
+.auth-form {
+    width:
+            min(
+                    620px,
+                    92%
+            );
+
+    max-width: 100%;
+
+    margin-inline: auto;
+}
+
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+.app-loading,
+.app-route-loading {
+    min-height: 45vh;
+
+    display: grid;
+
+    place-items: center;
+
+    color: var(--green);
+
+    font-weight: 700;
+}
+
+
+.app-loading-screen {
+    min-height: 100vh;
+
+    background: #f7f4ea;
+}
+
+
+/* =========================================================
+   CHAT
+   ========================================================= */
+
+.chat-root {
+    z-index: 130;
+}
+
+
+.chat-panel {
+    box-sizing: border-box;
+
+    max-width:
+            calc(
+                    100vw - 20px
+            );
+
+    max-height:
+            calc(
+                    100dvh -
+                    var(--app-header-height) -
+                    20px
+            );
+}
+
+
+.chat-panel.chat-expanded {
+    max-width: none;
+    max-height: none;
+}
+
+
+.chat-fab-open {
+    cursor: pointer;
+
+    touch-action: manipulation;
+}
+
+
+/* =========================================================
+   MEDIUM DESKTOP
+   ========================================================= */
+
+@media (max-width: 1280px) {
+
+    :root {
+        --admin-sidebar-width: 235px;
+    }
+
+
+    html.app-html.admin-html
+    .admin-main {
+        padding:
+                28px
+                22px
+                48px
+                26px;
+    }
+
+
+    .users-toolbar .searchbox {
+        width:
+                min(
+                        480px,
+                        60%
+                );
+
+        min-width: 320px;
+    }
+}
+
+
+/* =========================================================
+   AUTH COLLAPSE
+   ========================================================= */
+
+@media (max-width: 1180px) {
+
+    .auth-page {
+        grid-template-columns:
+            minmax(
+                0,
+                1fr
+            );
+    }
+
+
+    .auth-image {
+        display: none;
+    }
+
+
+    .auth-form-wrap {
+        padding:
+                clamp(
+                        24px,
+                        5vw,
+                        48px
+                )
+                clamp(
+                        14px,
+                        5vw,
+                        40px
+                );
+    }
+
+
+    .auth-form {
+        width:
+                min(
+                        620px,
+                        100%
+                );
+    }
+}
+
+
+/* =========================================================
+   TABLET / SMALL ADMIN
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    :root {
+        --app-header-height: 72px;
+
+        --admin-sidebar-width: 0px;
+    }
+
+
+    html.app-html
+    .route-stage.admin-route {
+        overflow-y: auto;
+    }
+
+
+    html.app-html.admin-html
+    .admin-page,
+
+    html.app-html.admin-html
+    .admin-page > .container,
+
+    html.app-html.admin-html
+    .admin-layout,
+
+    html.app-html.admin-html
+    .admin-main {
+        width: 100%;
+
+        max-width: 100%;
+
+        height: auto;
+
+        min-height: 0;
+
+        overflow: visible;
+    }
+
+
+    html.app-html.admin-html
+    .admin-layout {
+        display: block;
+    }
+
+
+    html.app-html.admin-html
+    .admin-sidebar {
+        position: static;
+
+        width: 100%;
+
+        height: auto;
+
+        margin: 0;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+
+    html.app-html.admin-html
+    .admin-main {
+        margin: 0 !important;
+
+        padding:
+                24px
+                18px
+                42px;
+    }
+
+
+    .users-toolbar .searchbox {
+        width: min(520px, 70%);
+
+        min-width: 280px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE USER CARDS
+   ========================================================= */
+
+@media (max-width: 760px) {
+
+    .users-toolbar {
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+
+    .users-toolbar .searchbox {
+        width: 100%;
+
+        min-width: 0;
+
+        max-width: none;
+    }
+
+
+    .users-toolbar > span {
+        align-self: flex-end;
+    }
+
+
+    .users-panel {
+        overflow: visible;
+
+        border: 0;
+
+        background: transparent;
+
+        box-shadow: none;
+    }
+
+
+    .users-table-wrap {
+        overflow: visible;
+    }
+
+
+    .users-table,
+    .users-table tbody,
+    .users-table tr,
+    .users-table td {
+        display: block;
+
+        width: 100%;
+    }
+
+
+    .users-table {
+        min-width: 0;
+
+        table-layout: auto;
+    }
+
+
+    .users-table colgroup,
+    .users-table thead {
+        display: none;
+    }
+
+
+    .users-table tbody {
+        display: grid;
+
+        gap: 12px;
+    }
+
+
+    .users-table tr {
+        overflow: hidden;
+
+        border:
+                1px
+                solid
+                #d5dfd9;
+
+        border-radius: 14px;
+
+        background: #fffdf8;
+
+        box-shadow:
+                0
+                7px
+                20px
+                rgba(
+                        25,
+                        62,
+                        48,
+                        .05
+                );
+    }
+
+
+    .users-table td {
+        display: grid;
+
+        grid-template-columns:
+            118px
+            minmax(
+                0,
+                1fr
+            );
+
+        gap: 12px;
+
+        align-items: center;
+
+        width: 100%;
+
+        min-width: 0;
+
+        padding:
+                11px
+                14px;
+
+        overflow: visible;
+
+        border-bottom:
+                1px
+                solid
+                #e3e9e5;
+    }
+
+
+    .users-table
+    td:last-child {
+        border-bottom: 0;
+    }
+
+
+    .users-table
+    td::before {
+        content:
+                attr(
+                        data-label
+                );
+
+        color: #607069;
+
+        font-size: 11px;
+
+        font-weight: 800;
+
+        letter-spacing: .04em;
+
+        text-transform: uppercase;
+    }
+
+
+    .users-table
+    td[data-label="Thành viên"] {
+        display: block;
+    }
+
+
+    .users-table
+    td[data-label="Thành viên"]::before {
+        display: none;
+    }
+
+
+    .users-actions {
+        min-width: 0;
+
+        justify-content: flex-start;
+    }
+
+
+    .user-role-select {
+        width: min(220px, 100%);
+
+        max-width: 220px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 560px) {
+
+    :root {
+        --app-header-height: 68px;
+    }
+
+
+    .auth-form-wrap {
+        padding:
+                18px
+                12px
+                28px;
+    }
+
+
+    .auth-form {
+        width: 100%;
+
+        padding:
+                25px
+                18px;
+    }
+
+
+    html.app-html.admin-html
+    .admin-main {
+        padding:
+                18px
+                10px
+                30px;
+    }
+
+
+    .users-table td {
+        grid-template-columns:
+            96px
+            minmax(
+                0,
+                1fr
+            );
+
+        padding:
+                10px
+                12px;
+    }
+}

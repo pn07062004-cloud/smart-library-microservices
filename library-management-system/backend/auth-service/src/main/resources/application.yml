@@ -1,0 +1,34 @@
+server:
+  port: 8081
+spring:
+  config:
+    import: "optional:file:./.env[.properties],optional:file:../.env[.properties],optional:file:../../.env[.properties]"
+  application.name: auth-service
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/library_auth?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Bangkok
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:123456}
+  jpa:
+    hibernate.ddl-auto: update
+    open-in-view: false
+    properties.hibernate.format_sql: true
+  mail:
+    host: ${MAIL_HOST:}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail.smtp.auth: ${MAIL_SMTP_AUTH:true}
+      mail.smtp.starttls.enable: ${MAIL_SMTP_STARTTLS:true}
+    test-connection: false
+eureka.client.service-url.defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+app.jwt:
+  secret: ${JWT_SECRET:SmartLibraryGraduationProjectSecretKey2026MustBeLong}
+  expiration-ms: 86400000
+app.google:
+  client-id: ${GOOGLE_CLIENT_ID:}
+app.mail:
+  from: ${MAIL_FROM:}
+app.frontend-url: ${APP_FRONTEND_URL:http://localhost:5173}
+
+internal.api-key: ${INTERNAL_API_KEY:SmartLibraryInternalServiceKey2026}

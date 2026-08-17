@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="AuthServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <envs>
+      <env name="   APP_FRONTEND_URL" value="http://localhost:5173" />
+      <env name="   MAIL_FROM" value="pn07062004@gmail.com" />
+      <env name="   MAIL_HOST" value="smtp.gmail.com" />
+      <env name="   MAIL_PASSWORD" value="oqut iutd xcyl vdpa" />
+      <env name="   MAIL_PORT" value="587" />
+      <env name="   MAIL_USERNAME" value="pn07062004@gmail.com" />
+      <env name="GOOGLE_CLIENT_ID" value="233810763054-6he245s0io55467oku44pppah3e41in6.apps.googleusercontent.com" />
+    </envs>
+    <module name="auth-service" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.library.auth.AuthServiceApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

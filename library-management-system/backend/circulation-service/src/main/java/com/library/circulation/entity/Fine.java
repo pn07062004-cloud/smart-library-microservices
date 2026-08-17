@@ -1,0 +1,3 @@
+package com.library.circulation.entity;import jakarta.persistence.*;import lombok.*;import java.time.*;
+@Entity @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder public class Fine{public enum Type{OVERDUE,DAMAGED,LOST}public enum Status{UNPAID,PAID,WAIVED}@Id @GeneratedValue(strategy=GenerationType.IDENTITY)private Long id;private Long loanId;private Long userId;private String userName;private String bookTitle;@Enumerated(EnumType.STRING)private Type type;private Long amount;private String reason;@Enumerated(EnumType.STRING)private Status status;private LocalDateTime createdAt;private LocalDateTime paidAt;@PrePersist void c(){createdAt=LocalDateTime.now();if(status==null)status=Status.UNPAID;}}
+
